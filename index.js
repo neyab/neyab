@@ -16,35 +16,23 @@ window.addEventListener("scroll", () => {
 });
 
 
-// SIMPLE FADE-IN ANIMATION
+// SIMPLE SCROLL ANIMATION
 
-const cards = document.querySelectorAll(
-    ".glass"
-);
+const animatedItems = document.querySelectorAll(".glass, .hero-text, .section-title");
 
-const observer = new IntersectionObserver((entries)=>{
-
-    entries.forEach((entry)=>{
-
-        if(entry.isIntersecting){
-
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = "translateY(0px)";
-
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+            entry.target.classList.remove("animate-hidden");
         }
-
     });
-
-},{
-    threshold:0.1
+}, {
+    threshold: 0.15,
 });
 
-cards.forEach((card)=>{
-
-    card.style.opacity = 0;
-    card.style.transform = "translateY(40px)";
-    card.style.transition = "all 0.8s ease";
-
-    observer.observe(card);
-
+animatedItems.forEach((item, index) => {
+    item.classList.add("animate-hidden");
+    item.style.transitionDelay = `${(index % 12) * 0.07}s`;
+    observer.observe(item);
 });
